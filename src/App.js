@@ -1,5 +1,5 @@
 import CategoryItem from './components/category-item/category-item.component'
-require('./app.styles.scss')
+import './app.styles.scss'
 
 const App = () => {
 
