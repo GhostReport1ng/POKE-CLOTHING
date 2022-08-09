@@ -3,7 +3,8 @@ import { getAuth,
     signInWithRedirect, 
     signInWithPopup, 
     GoogleAuthProvider,
-    createUserWithEmailAndPassword 
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword
 } from 'firebase/auth'
 import {
     getFirestore,
@@ -24,6 +25,7 @@ const firebaseConfig = {
   };
   
   // Initialize Firebase
+//   eslint-disable-next-line
 const firebaseApp = initializeApp(firebaseConfig);
 
 const googleProvider = new GoogleAuthProvider();
@@ -32,12 +34,13 @@ googleProvider.setCustomParameters({
 })
 
 export const auth = getAuth();
-export const signInWithGooglePopup = () => {
-    return signInWithPopup(auth, googleProvider)
-}
+export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider)
+
 export const signInWithGoogleRedirect = () => {
     return signInWithRedirect(auth, googleProvider)
 }
+
+
 
 export const db = getFirestore()
 
@@ -81,4 +84,10 @@ export const createAuthUserWithEmailAndPassword = async (email, password) => {
 
     return await createUserWithEmailAndPassword(auth, email, password)
 
+}
+
+export const signInAuthUserWithEmailAndPassword = async (email, password) => {
+    if (!email || !password) return;
+
+    return await signInWithEmailAndPassword(auth, email, password)
 }
