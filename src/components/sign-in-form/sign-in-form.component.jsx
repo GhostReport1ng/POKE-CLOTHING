@@ -3,11 +3,18 @@ import Button from "../button/button.component"
 import { useState } from "react"
 import './sign-in-form.styles.scss'
 import { 
-    signInAuthUserWithEmailAndPassword
+    signInAuthUserWithEmailAndPassword,
+    signInWithGooglePopup,
+    createUserDocumentFromAuth
 } from '../../utils/firebase/firebase.utils'
 
 
 
+const logGoogleUser = async () => {
+    const { user } = await signInWithGooglePopup();
+    console.log(user)
+    createUserDocumentFromAuth(user)
+}
 
 const SignInForm = () => {
 
@@ -72,10 +79,12 @@ const SignInForm = () => {
 
                 />
 
-                <div className="sign-in-buttons">
-                <Button>Sign in</Button>
+                <div className="buttons-container">
 
-
+                    <Button>Sign in</Button>
+                    <Button type='button' buttonType='google' onClick={logGoogleUser}>
+                    Google sign in
+                    </Button>
 
                 </div>
             </form>
