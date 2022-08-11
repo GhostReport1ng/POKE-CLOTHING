@@ -1,9 +1,15 @@
 import { Outlet, Link } from 'react-router-dom'
-import { Fragment } from 'react';
+import { Fragment, useContext } from 'react';
 import { ReactComponent as CrownLogo } from '../../assets/logo.svg'
+import { UserContext } from '../../components/contexts/user.context';
 import './navbar.styles.scss'
+import { signOutUser } from '../../utils/firebase/firebase.utils';
+
+
 
 const Navbar = () => {
+    const { currentUser } = useContext(UserContext)
+    // console.log(currentUser)
     return (
       <Fragment>
         <div className='navbar'>
@@ -17,9 +23,14 @@ const Navbar = () => {
                 <Link className='nav-link' to='/shop'>
                     SHOP
                 </Link>
-                <Link className='nav-link' to='/auth'>
+
+                {currentUser ? (
+                  <span className='nav-link'>SIGN OUT</span>)
+                  : (<Link className='nav-link' to='/auth'>
                     SIGN IN
-                </Link>
+                    </Link>)
+                }
+
           </div>
         </div>
         <Outlet />
