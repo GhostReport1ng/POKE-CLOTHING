@@ -8,35 +8,50 @@ import { signOutUser } from '../../utils/firebase/firebase.utils';
 
 
 const Navbar = () => {
-    const { currentUser } = useContext(UserContext)
-    // console.log(currentUser)
-    return (
-      <Fragment>
-        <div className='navbar'>
-          <Link className='logo-container' to='/'>
-            <CrownLogo className='logo' />
-          </Link>
-          <div className='nav-links-container'>
-                <Link className='nav-link' to='/'>
-                    HOME
-                </Link>
-                <Link className='nav-link' to='/shop'>
-                    SHOP
-                </Link>
 
-                {currentUser ? (
-                  <span className='nav-link'>SIGN OUT</span>)
-                  : (<Link className='nav-link' to='/auth'>
-                    SIGN IN
-                    </Link>)
-                }
+      const { currentUser } = useContext(UserContext)
 
-          </div>
-        </div>
-        <Outlet />
-      </Fragment>
-    )
-  }
+
+      
+        
+
+        return (
+          <Fragment>
+            <div className='navbar'>
+              <Link className='logo-container' to='/'>
+                <CrownLogo className='logo' />
+              </Link>
+              <div className='nav-links-container'>
+                    <Link className='nav-link' to='/'>
+                        HOME
+                    </Link>
+                    <Link className='nav-link' to='/shop'>
+                        SHOP
+                    </Link>
+
+                    {currentUser ? (
+                      
+                      <div>
+                      <span className='nav-link' onClick={signOutUser}>
+                      SIGN OUT
+                      </span>
+
+                      <span>{`Hello ${currentUser.displayName}`}</span>
+                      </div>)
+                      : (<Link className='nav-link' to='/auth'>
+                        SIGN IN
+                        </Link>)
+                    }
+
+              </div>
+            </div>
+            <Outlet />
+          </Fragment>
+        )
+      }
+
+    
+  
 
 
 export default Navbar;

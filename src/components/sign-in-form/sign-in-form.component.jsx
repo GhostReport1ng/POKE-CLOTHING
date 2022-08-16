@@ -13,7 +13,7 @@ import { UserContext } from "../contexts/user.context"
 
 const logGoogleUser = async () => {
     const { user } = await signInWithGooglePopup();
-    console.log(user)
+    // console.log(user)
     createUserDocumentFromAuth(user)
 }
 
@@ -28,7 +28,6 @@ const SignInForm = () => {
 
     const [formFields, setFormFields] = useState(defaultFormFields)
     const { email, password } = formFields
-    console.log('hit')
 
     const { setCurrentUser } = useContext(UserContext)
 

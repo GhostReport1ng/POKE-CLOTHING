@@ -4,6 +4,7 @@ import FormInput from "../form-input/form-input.component"
 import Button from "../button/button.component"
 import './sign-up-form.styles.scss'
 import { UserContext } from "../contexts/user.context"
+import { updateProfile } from "firebase/auth"
 
 const defaultFormFields = {
     displayName: '',
@@ -26,11 +27,7 @@ const SignUpForm = () => {
 
     const { displayName, email, password, confirmPassword } = formFields
 
-    const { setCurrentUser } = useContext(UserContext)
-    console.log('hit')
-
-
-    // console.log(formFields)
+    const { setCurrentUser, setDisplayName } = useContext(UserContext)
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -44,17 +41,29 @@ const SignUpForm = () => {
 
             const { user } = await createAuthUserWithEmailAndPassword(
                 email, 
-                password
-            )
-            
-            console.log(user)
+                password,
+                
+            ) 
 
-            await createUserDocumentFromAuth(user, { displayName })
+            
+            await updateProfile(user, {displayName: displayName})
+                        
             setCurrentUser(user)
+            setDisplayName(displayName)
+
+            console.log(user)
+            
+            
+
+
+            
+            await createUserDocumentFromAuth(user, { displayName })
+            
+
             resetFormfields()
 
         } catch(error) {
-            console.log('there was an error', error)
+            console.log('there was an error', error.message)
             alert(`${JSON.stringify(error.message).replace('Firebase:', '')}`)
         }
 
@@ -77,6 +86,7 @@ const SignUpForm = () => {
             </span>
             <form onSubmit={handleSubmit}>
                 <FormInput 
+                    id="display-name"
                     label="Display Name" 
                     type="text" 
                     required 
