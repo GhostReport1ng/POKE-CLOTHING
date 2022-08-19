@@ -27,7 +27,7 @@ const SignUpForm = () => {
 
     const { displayName, email, password, confirmPassword } = formFields
 
-    const { setCurrentUser, setDisplayName } = useContext(UserContext)
+    const { setDisplayName } = useContext(UserContext)
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -48,14 +48,9 @@ const SignUpForm = () => {
             
             await updateProfile(user, {displayName: displayName})
                         
-            setCurrentUser(user)
             setDisplayName(displayName)
 
             console.log(user)
-            
-            
-
-
             
             await createUserDocumentFromAuth(user, { displayName })
             

@@ -32,11 +32,13 @@ const Navbar = () => {
                     {currentUser ? (
                       
                       <div>
+
+                      <span>{`Hello ${currentUser.displayName}`}</span>
                       <span className='nav-link' onClick={signOutUser}>
                       SIGN OUT
                       </span>
 
-                      <span>{`Hello ${currentUser.displayName}`}</span>
+                      
                       </div>)
                       : (<Link className='nav-link' to='/auth'>
                         SIGN IN
