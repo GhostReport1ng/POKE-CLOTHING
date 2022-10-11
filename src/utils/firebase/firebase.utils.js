@@ -93,7 +93,7 @@ export const createAuthUserWithEmailAndPassword = async (email, password) => {
     // console.log(auth)
     
 
-    return await createUserWithEmailAndPassword(auth, email, password)//.then(async () => await updateProfile(auth.currentUser, {displayName: displayName}))
+    return await createUserWithEmailAndPassword(auth, email, password)
 
 } 
 
